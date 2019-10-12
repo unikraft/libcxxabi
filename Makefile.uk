@@ -72,9 +72,9 @@ CONFIG_FLAGS	+=	-D _LIBCXXABI_HAS_NO_THREADS
 LIBCXXABI_CFLAGS-y    +=  $(CONFIG_FLAGS)
 LIBCXXABI_CXXFLAGS-y    +=  $(CONFIG_FLAGS)
 
-SUPPRESS_FLAGS += -Wno-unused-parameter
-LIBCXXABI_CFLAGS-y   += $(SUPPRESS_FLAGS)
-LIBCXXABI_CXXFLAGS-y += $(SUPPRESS_FLAGS)
+LIBCXXABI_SUPPRESS_FLAGS += -Wno-unused-parameter
+LIBCXXABI_CFLAGS-y   += $(LIBCXXABI_SUPPRESS_FLAGS)
+LIBCXXABI_CXXFLAGS-y += $(LIBCXXABI_SUPPRESS_FLAGS)
 
 ################################################################################
 # Library sources
