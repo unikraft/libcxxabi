@@ -68,7 +68,9 @@ CXXINCLUDES-$(CONFIG_LIBCXXABI) += -I$(LIBCXXABI_SRC)/include
 ################################################################################
 # Global flags
 ################################################################################
+#ifndef CONFIG_LIBCXXABI_THREADS
 CONFIG_FLAGS	+=	-D _LIBCXXABI_HAS_NO_THREADS
+#endif
 LIBCXXABI_CFLAGS-y    +=  $(CONFIG_FLAGS)
 LIBCXXABI_CXXFLAGS-y    +=  $(CONFIG_FLAGS)
 
@@ -97,3 +99,6 @@ LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/private_typeinfo.cpp
 LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/cxa_handlers.cpp
 LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/cxa_default_handlers.cpp
 LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/cxa_guard.cpp
+#ifdef CONFIG_LIBCXXABI_THREADS
+LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/cxa_thread_atexit.cpp
+#endif
