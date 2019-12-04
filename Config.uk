@@ -6,5 +6,4 @@ menuconfig LIBCXXABI
 if LIBCXXABI
     config LIBCXXABI_THREADS
     bool "Enable threads support"
-    select CXX_THREADS
 endif
