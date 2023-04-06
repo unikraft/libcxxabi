@@ -48,6 +48,7 @@ LIBCXXABI_VERSION=16.0.0
 LIBCXXABI_URL=https://github.com/llvm/llvm-project/releases/download/llvmorg-$(LIBCXXABI_VERSION)/libcxxabi-$(LIBCXXABI_VERSION).src.tar.xz
 LIBCXXABI_PATCHDIR=$(LIBCXXABI_BASE)/patches
 $(eval $(call fetch,libcxxabi,$(LIBCXXABI_URL)))
+$(eval $(call patch,libcxxabi,$(LIBCXXABI_PATCHDIR),libcxxabi-$(LIBCXXABI_VERSION).src))
 
 ################################################################################
 # Helpers
