@@ -36,7 +36,7 @@
 $(eval $(call addlib_s,libcxxabi,$(CONFIG_LIBCXXABI)))
 
 ifeq ($(CONFIG_LIBCXXABI),y)
-ifneq ($(CONFIG_LIBLLVMUNWIND),y)
+ifneq ($(CONFIG_LIBUNWIND),y)
 $(error Require libunwind)
 endif
 endif
@@ -44,7 +44,7 @@ endif
 ################################################################################
 # Sources
 ################################################################################
-LIBCXXABI_VERSION=16.0.0
+LIBCXXABI_VERSION=16.0.3
 LIBCXXABI_URL=https://github.com/llvm/llvm-project/releases/download/llvmorg-$(LIBCXXABI_VERSION)/libcxxabi-$(LIBCXXABI_VERSION).src.tar.xz
 LIBCXXABI_PATCHDIR=$(LIBCXXABI_BASE)/patches
 $(eval $(call fetch,libcxxabi,$(LIBCXXABI_URL)))
