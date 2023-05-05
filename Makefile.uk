@@ -1,8 +1,11 @@
 #  libcxxabi Makefile.uk
 #
 #  Authors: Vlad-Andrei Badoiu <vlad_andrei.badoiu@stud.acs.upb.ro>
+#           Marco Schlumpp <marco@unikraft.io>
+#           Andrei Tatar <andrei@unikraft.io>
 #
 #  Copyright (c) 2019, Politehnica University of Bucharest. All rights reserved.
+#  Copyright (c) 2023, Unikraft GmbH and The Unikraft Authors.
 #
 #  Redistribution and use in source and binary forms, with or without
 #  modification, are permitted provided that the following conditions
@@ -44,8 +47,8 @@ endif
 ################################################################################
 # Sources
 ################################################################################
-LIBCXXABI_VERSION=7.0.0
-LIBCXXABI_URL=http://releases.llvm.org/$(LIBCXXABI_VERSION)/libcxxabi-$(LIBCXXABI_VERSION).src.tar.xz
+LIBCXXABI_VERSION=14.0.6
+LIBCXXABI_URL=https://github.com/llvm/llvm-project/releases/download/llvmorg-$(LIBCXXABI_VERSION)/libcxxabi-$(LIBCXXABI_VERSION).src.tar.xz
 LIBCXXABI_PATCHDIR=$(LIBCXXABI_BASE)/patches
 $(eval $(call fetch,libcxxabi,$(LIBCXXABI_URL)))
 
@@ -60,19 +63,29 @@ LIBCXXABI_SRC=$(LIBCXXABI_ORIGIN)/$(LIBCXXABI_SUBDIR)
 ################################################################################
 CINCLUDES-$(CONFIG_LIBCXXABI) += -I$(LIBCXXABI_SRC)/src
 CINCLUDES-$(CONFIG_LIBCXXABI) += -I$(LIBCXXABI_SRC)/include
+
 CXXINCLUDES-$(CONFIG_LIBCXXABI) += -I$(LIBCXXABI_SRC)/src
 CXXINCLUDES-$(CONFIG_LIBCXXABI) += -I$(LIBCXXABI_SRC)/include
 
 ################################################################################
 # Global flags
 ################################################################################
-ifndef CONFIG_LIBCXXABI_THREADS
-CONFIG_FLAGS	+=	-D _LIBCXXABI_HAS_NO_THREADS
-endif
-LIBCXXABI_CFLAGS-y    +=  $(CONFIG_FLAGS)
-LIBCXXABI_CXXFLAGS-y    +=  $(CONFIG_FLAGS)
+LIBCXXABI_CONFIG_FLAGS += -D_LIBCPP_BUILDING_LIBRARY
+LIBCXXABI_CONFIG_FLAGS += -D_LIBCXXABI_BUILDING_LIBRARY
+LIBCXXABI_CONFIG_FLAGS += -D__STDC_CONSTANT_MACROS
+LIBCXXABI_CONFIG_FLAGS += -D__STDC_FORMAT_MACROS
+LIBCXXABI_CONFIG_FLAGS += -D__STDC_LIMIT_MACROS
+LIBCXXABI_CONFIG_FLAGS += -D__linux__
 
-LIBCXXABI_SUPPRESS_FLAGS += -Wno-unused-parameter -Wno-parentheses
+ifneq ($(CONFIG_LIBCXXABI_THREADS),y)
+LIBCXXABI_CONFIG_FLAGS += -D _LIBCXXABI_HAS_NO_THREADS
+endif
+
+LIBCXXABI_SUPPRESS_FLAGS += -Wno-parentheses
+
+LIBCXXABI_CFLAGS-y   += $(LIBCXXABI_CONFIG_FLAGS)
+LIBCXXABI_CXXFLAGS-y += $(LIBCXXABI_CONFIG_FLAGS)
+
 LIBCXXABI_CFLAGS-y   += $(LIBCXXABI_SUPPRESS_FLAGS)
 LIBCXXABI_CXXFLAGS-y += $(LIBCXXABI_SUPPRESS_FLAGS)
 
@@ -88,7 +101,7 @@ LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/cxa_exception_storage.cpp
 LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/cxa_guard.cpp
 LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/cxa_handlers.cpp
 LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/cxa_personality.cpp
-LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/cxa_unexpected.cpp
+LIBCXXABI_SRCS-$(CONFIG_LIBCXXABI_THREADS) += $(LIBCXXABI_SRC)/src/cxa_thread_atexit.cpp
 LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/cxa_vector.cpp
 LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/cxa_virtual.cpp
 LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/fallback_malloc.cpp
@@ -97,6 +110,3 @@ LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/stdlib_exception.cpp
 LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/stdlib_new_delete.cpp
 LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/stdlib_stdexcept.cpp
 LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/stdlib_typeinfo.cpp
-ifdef CONFIG_LIBCXXABI_THREADS
-LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/cxa_thread_atexit.cpp
-endif
