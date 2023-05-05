@@ -79,24 +79,24 @@ LIBCXXABI_CXXFLAGS-y += $(LIBCXXABI_SUPPRESS_FLAGS)
 ################################################################################
 # Library sources
 ################################################################################
+LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/abort_message.cpp
+LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/cxa_aux_runtime.cpp
+LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/cxa_default_handlers.cpp
+LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/cxa_demangle.cpp
 LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/cxa_exception.cpp
 LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/cxa_exception_storage.cpp
-LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/cxa_virtual.cpp
-LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/abort_message.cpp
-LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/stdlib_exception.cpp
-LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/cxa_demangle.cpp
-LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/stdlib_typeinfo.cpp
-LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/fallback_malloc.cpp
-LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/cxa_aux_runtime.cpp
-LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/stdlib_new_delete.cpp
-LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/cxa_personality.cpp
-LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/cxa_vector.cpp
-LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/stdlib_stdexcept.cpp
-LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/cxa_unexpected.cpp
-LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/private_typeinfo.cpp
-LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/cxa_handlers.cpp
-LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/cxa_default_handlers.cpp
 LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/cxa_guard.cpp
+LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/cxa_handlers.cpp
+LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/cxa_personality.cpp
+LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/cxa_unexpected.cpp
+LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/cxa_vector.cpp
+LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/cxa_virtual.cpp
+LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/fallback_malloc.cpp
+LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/private_typeinfo.cpp
+LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/stdlib_exception.cpp
+LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/stdlib_new_delete.cpp
+LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/stdlib_stdexcept.cpp
+LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/stdlib_typeinfo.cpp
 ifdef CONFIG_LIBCXXABI_THREADS
 LIBCXXABI_SRCS-y += $(LIBCXXABI_SRC)/src/cxa_thread_atexit.cpp
 endif
