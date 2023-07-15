@@ -47,7 +47,7 @@ endif
 ################################################################################
 # Sources
 ################################################################################
-LIBCXXABI_VERSION=14.0.6
+LIBCXXABI_VERSION=15.0.0
 LIBCXXABI_URL=https://github.com/llvm/llvm-project/releases/download/llvmorg-$(LIBCXXABI_VERSION)/libcxxabi-$(LIBCXXABI_VERSION).src.tar.xz
 LIBCXXABI_PATCHDIR=$(LIBCXXABI_BASE)/patches
 $(eval $(call fetch,libcxxabi,$(LIBCXXABI_URL)))
